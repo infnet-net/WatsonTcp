@@ -1114,8 +1114,17 @@ namespace WatsonTcp
                                 msg.Expiration.Value,
                                 msg.Metadata,
                                 msgData);
-                                 
-                            SyncResponse syncResp = _Callbacks.HandleSyncRequestReceived(syncReq);
+
+                            SyncResponse syncResp = null;
+                            if (_Settings.AsyncReceive)
+                            {
+                                syncResp = await _Callbacks.HandleSyncRequestReceivedAsync(syncReq);
+                            }
+                            else
+                            {
+                                syncResp = _Callbacks.HandleSyncRequestReceived(syncReq);
+                            }
+
                             if (syncResp != null)
                             { 
                                 WatsonCommon.BytesToStream(syncResp.Data, out long contentLength, out Stream stream);
@@ -1163,6 +1172,15 @@ namespace WatsonTcp
                             msgData = await WatsonCommon.ReadMessageDataAsync(msg, _Settings.StreamBufferSize).ConfigureAwait(false); 
                             MessageReceivedEventArgs mr = new MessageReceivedEventArgs(client.IpPort, msg.Metadata, msgData);
                             await Task.Run(() => _Events.HandleMessageReceived(this, mr), token);
+
+                            if (_Settings.AsyncReceive)
+                            {
+                                await Task.Run(async () => await _Events.HandleMessageReceivedAsync(mr), token);
+                            }
+                            else
+                            {
+                                await Task.Run(() => _Events.HandleMessageReceived(this, mr), token);
+                            }
                         }
                         else if (_Events.IsUsingStreams)
                         {

@@ -72,6 +72,11 @@ namespace WatsonTcp
         public string PresharedKey = null;
 
         /// <summary>
+        /// Use async version of receive handlers.
+        /// </summary>
+        public bool AsyncReceive = false;
+
+        /// <summary>
         /// For Watson TCP server, the maximum amount of time to wait before considering a client idle and disconnecting them. 
         /// By default, this value is set to 0, which will never disconnect a client due to inactivity.
         /// The timeout is reset any time a message is received from a client or a message is sent to a client.

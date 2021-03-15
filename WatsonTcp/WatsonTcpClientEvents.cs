@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace WatsonTcp
 {
@@ -26,6 +27,12 @@ namespace WatsonTcp
         /// If MessageReceived is set, StreamReceived will not be used.
         /// </summary>
         public event EventHandler<MessageReceivedEventArgs> MessageReceived;
+
+        /// <summary>  
+        /// This event is fired when a message is received from the server and it is desired that WatsonTcp pass the byte array containing the message payload. 
+        /// If MessageReceived is set, StreamReceived will not be used.
+        /// </summary>
+        public Func<MessageReceivedEventArgs, Task> MessageReceivedAsync;
 
         /// <summary> 
         /// This callback is called when a stream is received from the server and it is desired that WatsonTcp pass the stream containing the message payload to your application. 
@@ -58,7 +65,7 @@ namespace WatsonTcp
         {
             get
             {
-                if (MessageReceived != null && MessageReceived.GetInvocationList().Length > 0) return true;
+                if ((MessageReceived != null && MessageReceived.GetInvocationList().Length > 0) || this.MessageReceivedAsync != null) return true;
                 return false;
             }
         }
@@ -98,7 +105,7 @@ namespace WatsonTcp
 
         internal void HandleAuthenticationSucceeded(object sender, EventArgs args)
         {
-            WrappedEventHandler(() => AuthenticationSucceeded?.Invoke(sender, args), "ServerConnected", sender); 
+            WrappedEventHandler(() => AuthenticationSucceeded?.Invoke(sender, args), "ServerConnected", sender);
         }
 
         internal void HandleAuthenticationFailure(object sender, EventArgs args)
@@ -109,6 +116,23 @@ namespace WatsonTcp
         internal void HandleMessageReceived(object sender, MessageReceivedEventArgs args)
         {
             WrappedEventHandler(() => MessageReceived?.Invoke(sender, args), "MessageReceived", sender);
+        }
+
+        internal Task HandleMessageReceivedAsync(MessageReceivedEventArgs args)
+        {
+            if (MessageReceivedAsync != null)
+            {
+                try
+                {
+                    return MessageReceivedAsync(args);
+                }
+                catch (Exception)
+                {
+
+                }
+            }
+
+            return Task.CompletedTask;
         }
 
         internal void HandleStreamReceived(object sender, StreamReceivedEventArgs args)

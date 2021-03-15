@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace WatsonTcp
 {
@@ -31,11 +30,27 @@ namespace WatsonTcp
             }
         }
 
+        /// <summary>
+        /// Callback to invoke when receiving a synchronous request that demands a response.
+        /// </summary>
+        public Func<SyncRequest, Task<SyncResponse>> SyncRequestReceivedAsync
+        {
+            get
+            {
+                return _SyncRequestReceivedAsync;
+            }
+            set
+            {
+                _SyncRequestReceivedAsync = value;
+            }
+        }
+
         #endregion
 
         #region Private-Members
 
         private Func<SyncRequest, SyncResponse> _SyncRequestReceived = null;
+        private Func<SyncRequest, Task<SyncResponse>> _SyncRequestReceivedAsync = null;
 
         #endregion
 
@@ -95,10 +110,27 @@ namespace WatsonTcp
             return ret;
         }
 
+        internal Task<SyncResponse> HandleSyncRequestReceivedAsync(SyncRequest req)
+        {
+            if (SyncRequestReceivedAsync != null)
+            {
+                try
+                {
+                    return SyncRequestReceivedAsync(req);
+                }
+                catch (Exception)
+                {
+
+                }
+            }
+
+            return Task.FromResult<SyncResponse>(null);
+        }
+
         #endregion
 
         #region Private-Methods
-         
+
         #endregion
     }
 }

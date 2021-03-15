@@ -72,6 +72,11 @@ namespace WatsonTcp
         public string PresharedKey = null;
 
         /// <summary>
+        /// Use async version of receive handlers.
+        /// </summary>
+        public bool AsyncReceive = false;
+
+        /// <summary>
         /// For Watson TCP client, the number of seconds to wait before timing out a connection attempt.  Default is 5 seconds.  Value must be greater than zero.
         /// </summary>
         public int ConnectTimeoutSeconds

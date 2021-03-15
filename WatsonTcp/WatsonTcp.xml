@@ -693,6 +693,11 @@
             Callback to invoke when receiving a synchronous request that demands a response.
             </summary>
         </member>
+        <member name="P:WatsonTcp.WatsonTcpClientCallbacks.SyncRequestReceivedAsync">
+            <summary>
+            Callback to invoke when receiving a synchronous request that demands a response.
+            </summary>
+        </member>
         <member name="M:WatsonTcp.WatsonTcpClientCallbacks.#ctor">
             <summary>
             Instantiate the object.
@@ -714,6 +719,12 @@
             </summary>
         </member>
         <member name="E:WatsonTcp.WatsonTcpClientEvents.MessageReceived">
+            <summary>  
+            This event is fired when a message is received from the server and it is desired that WatsonTcp pass the byte array containing the message payload. 
+            If MessageReceived is set, StreamReceived will not be used.
+            </summary>
+        </member>
+        <member name="F:WatsonTcp.WatsonTcpClientEvents.MessageReceivedAsync">
             <summary>  
             This event is fired when a message is received from the server and it is desired that WatsonTcp pass the byte array containing the message payload. 
             If MessageReceived is set, StreamReceived will not be used.
@@ -788,6 +799,11 @@
         <member name="F:WatsonTcp.WatsonTcpClientSettings.PresharedKey">
             <summary>
             Preshared key that must be consistent between clients and this server.
+            </summary>
+        </member>
+        <member name="F:WatsonTcp.WatsonTcpClientSettings.AsyncReceive">
+            <summary>
+            Use async version of receive handlers.
             </summary>
         </member>
         <member name="P:WatsonTcp.WatsonTcpClientSettings.ConnectTimeoutSeconds">
@@ -1061,6 +1077,11 @@
             Callback to invoke when receiving a synchronous request that demands a response.
             </summary>
         </member>
+        <member name="P:WatsonTcp.WatsonTcpServerCallbacks.SyncRequestReceivedAsync">
+            <summary>
+            Callback to invoke when receiving a synchronous request that demands a response.
+            </summary>
+        </member>
         <member name="M:WatsonTcp.WatsonTcpServerCallbacks.#ctor">
             <summary>
             Instantiate the object.
@@ -1099,6 +1120,12 @@
             </summary>
         </member>
         <member name="E:WatsonTcp.WatsonTcpServerEvents.MessageReceived">
+            <summary>
+            This event is fired when a message is received from a client and it is desired that WatsonTcp pass the byte array containing the message payload.
+            If MessageReceived is set, StreamReceived will not be used.
+            </summary>
+        </member>
+        <member name="F:WatsonTcp.WatsonTcpServerEvents.MessageReceivedAsync">
             <summary>
             This event is fired when a message is received from a client and it is desired that WatsonTcp pass the byte array containing the message payload.
             If MessageReceived is set, StreamReceived will not be used.
@@ -1171,6 +1198,11 @@
         <member name="F:WatsonTcp.WatsonTcpServerSettings.PresharedKey">
             <summary>
             Preshared key that must be consistent between clients and this server.
+            </summary>
+        </member>
+        <member name="F:WatsonTcp.WatsonTcpServerSettings.AsyncReceive">
+            <summary>
+            Use async version of receive handlers.
             </summary>
         </member>
         <member name="P:WatsonTcp.WatsonTcpServerSettings.IdleClientTimeoutSeconds">

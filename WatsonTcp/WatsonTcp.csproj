@@ -1,22 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1;netstandard2.0;netstandard2.1;net461;net5.0</TargetFrameworks>
+    <TargetFrameworks>net461;net5.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>4.8.0</Version>
-    <Authors>Joel Christner</Authors>
-    <Company>Joel Christner</Company>
+    <Version>4.8.4</Version>
+    <Authors>Joel Christner, INF, s.r.o.</Authors>
+    <Company>Joel Christner, INF, s.r.o.</Company>
     <Description>A simple C# async TCP server and client with integrated framing for reliable transmission and receipt of data</Description>
     <Copyright>(c)2020 Joel Christner</Copyright>
     <PackageTags>tcp rpc ssl message messaging frame framing async api server bus queue mesh fabric</PackageTags>
-    <PackageProjectUrl>https://github.com/jchristn/WatsonTcp</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/jchristn/WatsonTcp</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/infnet-net/WatsonTcp</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/infnet-net/WatsonTcp</RepositoryUrl>
     <RepositoryType>Github</RepositoryType>
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageReleaseNotes>Breaking change, log messages now include severity</PackageReleaseNotes>
     <PackageIconUrl></PackageIconUrl>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageIcon>watson.png</PackageIcon>
+    <PackageId>WatsonTcp.Inf</PackageId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp3.1|AnyCPU'">
