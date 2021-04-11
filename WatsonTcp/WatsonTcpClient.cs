@@ -770,7 +770,7 @@ namespace WatsonTcp
                             SyncResponse syncResp = null;
                             if (_Settings.AsyncReceive)
                             {
-                                syncResp = await _Callbacks.HandleSyncRequestReceivedAsync(syncReq).ConfigureAwait(false);
+                                syncResp = await _Callbacks.HandleSyncRequestReceivedAsync(syncReq);
                             }
                             else
                             {
@@ -826,7 +826,7 @@ namespace WatsonTcp
 
                             if (_Settings.AsyncReceive)
                             {
-                                await Task.Run(async () => await _Events.HandleMessageReceivedAsync(args).ConfigureAwait(false)).ConfigureAwait(false);
+                                await Task.Run(async () => await _Events.HandleMessageReceivedAsync(args));
                             }
                             else
                             {
