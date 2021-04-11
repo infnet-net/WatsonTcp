@@ -1171,7 +1171,6 @@ namespace WatsonTcp
                         { 
                             msgData = await WatsonCommon.ReadMessageDataAsync(msg, _Settings.StreamBufferSize).ConfigureAwait(false); 
                             MessageReceivedEventArgs mr = new MessageReceivedEventArgs(client.IpPort, msg.Metadata, msgData);
-                            await Task.Run(() => _Events.HandleMessageReceived(this, mr), token);
 
                             if (_Settings.AsyncReceive)
                             {
